@@ -66,51 +66,52 @@ export default {
   components: {
     liststoke
   },
-  provide () {
+  provide () { //设置动态刷新组件
     return {
       reload : this.reload
     }
   },
   data() {
-    return {
-      issort : true,
-      showcompany: false,
-      showarea: false,
-      showwarehouse: false,
-      companyname: this.$store.state.userinfo.companyName,
-      areaname: "请选择区域",
-      warehousename: "请选择仓库",
-      companylist: [
-            {
-                "businessLicence": "B",
-                "companyNo": "B",
-                "createTime": 1517899548000,
-                "createUpdateInfo": false,
-                "enable": true,
-                "id": 6,
-                "insertResource": false,
-                "isDelete": "0",
-                "isPlan": 1,
-                "linkman": "B",
-                "logourl": "d:/upload/20180206/5431f26e-1b86-40a0-b1bb-b99349171a79.jpg",
-                "name": "丰乐农化分公司",
-                "pId": 1,
-                "phone": "B",
-                "remark": "B",
-                "scopeofBusiness": "B",
-                "version": 0
-            }
-        ],
-      arealist:  [],
-      warehouselist: [],
-      goodslist : []
+    return { //设置本实例所用到的变量值
+      issort : true, //刷新列表的标志
+      showcompany: false, //选择公司区块默认隐藏
+      showarea: false, //选择区域区块默认隐藏
+      showwarehouse: false, //选择仓库区块默认隐藏
+      companyname: this.$store.state.userinfo.companyName, //公司名称 默认取自状态库
+      areaname: "请选择区域", //区域名称
+      warehousename: "请选择仓库", //仓库名称
+      companylist: this.$store.state.userinfo.company, //公司列表 默认取自状态库
+      companyId: ""+this.$store.state.userinfo.companyId, //公司代码 默认取自状态库
+      largeAreaCode: "", //区域代码
+      wareHouseCode: "", //仓库代码
+      keyword: "", //模糊查询关键字
+      token: this.$store.state.userinfo.token, //token 默认取自状态库
+      params:{}, //参数库
+      arealist:  [], //区域列表
+      warehouselist: [], //仓库列表
+      goodslist : [] //库存列表
     }
   },
+  created () { //初始化请求远程数据参数
+    this.params.token = this.token
+    this.params.page = 1
+    this.params.pageSize = 10
+    this.params.companyId = this.companyId
+    this.params.largeAreaCode = this.largeAreaCode
+    this.params.keyword = this.keyword
+    this.params.wareHouseCode = this.wareHouseCode
+    this.$store.commit('setparams',this.params)
+  },
   methods: {
+    provide () {
+      return {
+        reload :this.reload
+      }
+    },
     reload () {
       this.issort = false
       this.$nextTick(()=>{
-        this.issort = true
+      this.issort = true
       }) 
 
     },
@@ -187,24 +188,33 @@ export default {
       },
     selectcompany : function(item) { //选择公司
       //请求远程公司数据
-      
+     // this.companyId = item.id
       this.companyname = item.name
       this.showcompany = false
+      this.params.companyId = this.companyId
+      this.$store.commit('setparams',this.params)
+      this.reload()
+      //console.log(this.$store.state.params)
     },
     selectarea : function(item) { //选择区域
+      this.largeAreaCode = item.code
       this.areaname = item.name
        //对库存列表按区域名称进行筛选
       this.showarea = false
+      this.params.largeAreaCode = this.largeAreaCode
+      this.$store.commit('setparams',this.params)
+      //console.log(this.$store.state.params)
+      this.reload()
     },
     selectwarehouse : function(item) { //选择仓库
-      //选中的仓库代码存入状态中，在库存列表中作为筛选条件
-      this.$store.commit('setwarehouseid',item.cWhCode)
-      //将库存列表状态改为按选中的仓库代码筛选
-      this.$store.commit('setgoodssort','warehouse')
+      this.wareHouseCode = item.cWhCode
       this.warehousename = item.cWhName
       //对库存列表按仓库名称进行筛选
-      this.reload()
       this.showwarehouse = false
+      this.params.wareHouseCode = this.wareHouseCode
+      this.$store.commit('setparams',this.params)
+      //console.log(this.$store.state.params)
+      this.reload()
     }
   },
 
@@ -213,7 +223,8 @@ export default {
 
 <style scoped>
 .title {
-    height: 50px;
+    height: 40px;
+    line-height: 40px;
     background-color: #4093d6;
     color: #fff;
 }

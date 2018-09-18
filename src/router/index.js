@@ -10,6 +10,7 @@ import sale from '../pages/sale/sale' //引入库存查询页面
 import stoke from '../pages/stoke/stoke' //引入销售发货页面
 import capital from '../pages/capital/capital' //引入资金管理页面
 import profile from '../pages/profile/profile'
+import stokedetial from '../pages/stoke/stokedetail'
 
 //声明使用路由插件
 Vue.use(VueRouter)
@@ -46,6 +47,11 @@ export default new VueRouter({
         {
             path : '/profile',
             component : profile
+        },
+        {
+            path : '/stokedetail',
+            name : 'stokedetail',
+            component : stokedetial
         },
         {
             path : '/',

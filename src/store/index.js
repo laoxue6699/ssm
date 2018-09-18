@@ -6,18 +6,14 @@ Vue.use(Vuex)
 const state = {
 	//userInfo: null, //用户信息
 	userinfo : {},
-	goodssort : "all",
-	warehouseid : ""
+	params : {}
 }
 const mutations = {
 	setuserinfo : function(state,info) {
 		state.userinfo = info
 	},
-	setgoodssort : function(state,vel){
-		state.goodssort = vel
-	},
-	setwarehouseid : function(state,vel){
-		state.warehouseid = vel
+	setparams : function(state,param) {
+		state.params = param
 	}
 }
 

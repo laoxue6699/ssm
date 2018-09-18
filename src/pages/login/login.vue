@@ -51,7 +51,8 @@ export default {
                 areaName : response.data.data.areaName,
                 roleName : response.data.data.roleName,
                 companyId : response.data.data.companyId,
-                token : response.data.data.token
+                token : response.data.data.token,
+                company : response.data.data.company
             }
               this.$store.commit('setuserinfo',userinfo)
               this.$router.push({name :'home',params : userinfo})

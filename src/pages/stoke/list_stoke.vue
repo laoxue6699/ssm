@@ -9,9 +9,6 @@
             <div class='mui-row'>
               <div class="mui-col-xs-10">
                 <ul>
-                  <li>公司：{{companyname}}</li>
-                  <li>区域：{{item.area_name}}</li>
-                  <li>仓库：{{item.goods_warehouse}}</li>
                   <li>商品编码：{{item.goods_code}}</li>
                   <li>剩余库存：{{item.goods_num}}</li>
                   <li>可用计划：{{item.goods_plan}}</li>
@@ -39,34 +36,18 @@
         goodslist: []
       }
     },   
-  created : function() {
+  created () {
     //请求远程库存列表数据
     let url = "/train-rest/rest/saleorreturn/good_list" //远程请求地址
-    let stoke = {} //生成请求参数对象
-    stoke.token = this.$store.state.userinfo.token //从本地存取的用户信息中读取token
-    stoke.processCodes = '2'
-    stoke.companyId = this.$store.state.userinfo.companyId //从本地存取的用户信息中读取公司ID
-    stoke.page = "1"
-    stoke.pageSize = "20"
-    stoke.process_type = "send_goods"
-    stoke.isMe = "1"
-      let stokejson = JSON.stringify(stoke) //将请求参数对象转换程JSON格式
-      this.$axios.post(url,stokejson,) //执行远程Ajax请求
+    let stoke = this.$store.state.params //生成请求参数对象
+    let stokejson = JSON.stringify(stoke) //将请求参数对象转换程JSON格式
+    this.$axios.post(url,stokejson,) //执行远程Ajax请求
         .then(
           response => {
               //console.log(response.data)
               if (response.data.success === true){
-                  if(this.$store.state.goodssort === 'all'){
-                    this.goodslist = response.data.data
-                  }
-                  if(this.$store.state.goodssort === 'warehouse'){
-                    let reclist = response.data.data
-                    let warehouseid = this.$store.state.warehouseid
-                    this.goodslist = reclist.filter(obj => obj.warehouse_code = warehouseid)
-                  }
-                  console.log('goodssort',this.$store.state.goodssort)
-                  console.log('warehouseid',this.$store.state.warehouseid)
-            }
+                this.goodslist = response.data.data
+              }
           },
           response => {
             console.log(
