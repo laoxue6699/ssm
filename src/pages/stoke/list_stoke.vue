@@ -6,7 +6,7 @@
             <div class="mui-col-xs-10">
               <h4 class="mui-ellipsis">{{item.goods_name}}</h4>
             </div>
-            <div class='mui-row'>
+            <div @click="goto(item)" class='mui-row'>
               <div class="mui-col-xs-10">
                 <ul>
                   <li>商品编码：{{item.goods_code}}</li>
@@ -35,7 +35,12 @@
         companyname: this.$store.state.userinfo.companyName,
         goodslist: []
       }
-    },   
+    }, 
+    methods: {
+      goto(item) {
+        this.$router.push({name :'stokedetail',params : item})
+      }
+    },
   created () {
     //请求远程库存列表数据
     let url = "/train-rest/rest/saleorreturn/good_list" //远程请求地址
