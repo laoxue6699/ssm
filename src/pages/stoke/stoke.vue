@@ -78,21 +78,32 @@ export default {
       showarea: false, //选择区域区块默认隐藏
       showwarehouse: false, //选择仓库区块默认隐藏
       companyname: this.$store.state.userinfo.companyName, //公司名称 默认取自状态库
-      areaname: "请选择区域", //区域名称
+      areaname: "请选择大区", //区域名称
       warehousename: "请选择仓库", //仓库名称
       companylist: this.$store.state.userinfo.company, //公司列表 默认取自状态库
-      companyId: ""+this.$store.state.userinfo.companyId, //公司代码 默认取自状态库
+      companyId: this.$store.state.userinfo.companyId, //公司代码 默认取自状态库
       largeAreaCode: "", //区域代码
       wareHouseCode: "", //仓库代码
       keyword: "", //模糊查询关键字
-      token: this.$store.state.userinfo.token, //token 默认取自状态库
+      token: "", //token 默认取自状态库
       params:{}, //参数库
       arealist:  [], //区域列表
       warehouselist: [], //仓库列表
       goodslist : [] //库存列表
     }
   },
-  created () { //初始化请求远程数据参数
+  created () {
+    this.params.token = this.$store.state.userinfo.token
+    this.params.page = 1
+    this.params.pageSize = 10
+    this.params.companyId = this.$store.state.userinfo.companyId
+    this.params.largeAreaCode = this.largeAreaCode
+    this.params.keyword = this.keyword
+    this.params.wareHouseCode = this.wareHouseCode
+    this.$store.commit('setparams',this.params)
+  },
+  methods: {
+    setparams() { //初始化请求远程数据参数
     this.params.token = this.token
     this.params.page = 1
     this.params.pageSize = 10
@@ -101,8 +112,8 @@ export default {
     this.params.keyword = this.keyword
     this.params.wareHouseCode = this.wareHouseCode
     this.$store.commit('setparams',this.params)
+    console.log(this.store.state.params)
   },
-  methods: {
     provide () {
       return {
         reload :this.reload
@@ -112,6 +123,7 @@ export default {
       this.issort = false
       this.$nextTick(()=>{
       this.issort = true
+      this.setparams
       }) 
 
     },
@@ -191,7 +203,7 @@ export default {
      // this.companyId = item.id
       this.companyname = item.name
       this.showcompany = false
-      this.params.companyId = this.companyId
+      this.params.companyId = this.companyI
       this.$store.commit('setparams',this.params)
       this.reload()
       //console.log(this.$store.state.params)
@@ -201,7 +213,9 @@ export default {
       this.areaname = item.name
        //对库存列表按区域名称进行筛选
       this.showarea = false
-      this.params.largeAreaCode = this.largeAreaCode
+      //console.log('item',item)
+      this.params.largeAreaCode = item.code
+      this.params.largAreaName = item.name
       this.$store.commit('setparams',this.params)
       //console.log(this.$store.state.params)
       this.reload()

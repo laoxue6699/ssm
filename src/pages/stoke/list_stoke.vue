@@ -38,7 +38,7 @@
     }, 
     methods: {
       goto(item) {
-        this.$router.push({name :'stokedetail',params : item})
+        this.$router.replace({name :'stokedetail',params : item})
       }
     },
   created () {
