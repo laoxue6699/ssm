@@ -32,11 +32,6 @@
 </script>
 
 <style scoped>
-#app {
-  background-image: url("../assets/images/login_bg.png");
-  background-size : cover;
-  height: 820px;
-  }
 #logo {
   margin: auto;
   padding-top:60px;
@@ -60,10 +55,20 @@ button{
   width: 120px;
   margin: auto;
 }
-#copyright{
-    position:absolute;
-    bottom: 40px;
-    left:25%;
+  #app {
+  position:fixed;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/images/login_bg.png");
+  background-size : cover;
+  }
+
+  #copyright{
+    position:fixed;
+    bottom: 60px;
+    left:50%;
+    margin-left: -90px;
     color:#fff;
 }
 

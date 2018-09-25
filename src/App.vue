@@ -3,6 +3,7 @@
     <transition name="router-fade" mode="out-in">
       <router-view/>
     </transition>
+
   </div>
 </template>
 
@@ -13,5 +14,5 @@ export default {
 </script>
 
 <style>
-
+  
 </style>
