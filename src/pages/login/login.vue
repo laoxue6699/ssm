@@ -1,9 +1,14 @@
 <template>
 	<div id="app">
-		<header class="mui-bar mui-bar-nav">
-			<h1 class="mui-title">登录</h1>
-		</header>
-		<div class="mui-content">
+    	
+		    <div id="logo">
+            <img src="../../assets/images/logo.png">
+        </div>
+        <h2>智慧销售管理系统</h2>
+        <div id="copyright">
+            博耀信息版权所有（v1.0)
+        </div>
+	
 			<div id='login-form' class="mui-input-group">
 				<div class="mui-input-row">
 					<label>账号</label>
@@ -18,7 +23,7 @@
 			<div class="mui-content-padded">
 				<button id='login' @click="getData" class="mui-btn mui-btn-block mui-btn-primary">登录</button>
 				</div>
-			</div>
+		
 	</div>
 </template>
 
@@ -70,8 +75,44 @@ export default {
 </script>
 
 <style scoped>
-.area {
-  margin: 20px auto 0px auto;
+#logo {
+  margin: auto;
+  padding-top:60px;
+  width: 120px;
+  height: 120px;;
+}
+img{
+  width: 100%;
+  }
+h2 {
+  display: block;
+  text-align: center;
+  margin-top: 100px;
+  color: white;
+}
+#logout,#login{
+  margin-top: 40px;
+}
+button{
+  display: block;
+  width: 120px;
+  margin: auto;
+}
+#app {
+  position:fixed;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/images/login_bg.png");
+  background-size : cover;
+  }
+
+  #copyright{
+    position:fixed;
+    bottom: 60px;
+    left:50%;
+    margin-left: -90px;
+    color:#fff;
 }
 
 .mui-input-group {
@@ -92,62 +133,11 @@ export default {
   width: 78%;
 }
 
-.mui-checkbox input[type="checkbox"],
-.mui-radio input[type="radio"] {
-  top: 6px;
-}
-
-.mui-content-padded {
-  margin-top: 25px;
-}
-
-.mui-btn {
-  padding: 10px;
-}
-
-.link-area {
-  display: block;
-  margin-top: 25px;
-  text-align: center;
-}
-
-.spliter {
-  color: #bbb;
-  padding: 0px 8px;
-}
-
-.oauth-area {
-  position: absolute;
-  bottom: 20px;
-  left: 0px;
-  text-align: center;
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-}
-
-.oauth-area .oauth-btn {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-size: 30px 30px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  margin: 0px 20px;
-  /*-webkit-filter: grayscale(100%); */
-  border: solid 1px #ddd;
-  border-radius: 25px;
-}
-
-.oauth-area .oauth-btn:active {
-  border: solid 1px #aaa;
-}
-
-.oauth-area .oauth-btn.disabled {
-  background-color: #ddd;
-}
-
 button {
   margin-top: 100px;
 }
+#login-form {
+  margin: 30px;
+}
+
 </style>

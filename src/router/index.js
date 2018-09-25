@@ -19,10 +19,6 @@ export default new VueRouter({
     //配置所有路由
     routes: [
         {
-            path : '/cover',
-            component : cover
-        },
-        {
             path : '/home',
             name : 'home',
             component : home
@@ -55,7 +51,7 @@ export default new VueRouter({
         },
         {
             path : '/',
-            redirect : '/cover'
+            redirect : '/login'
         }
     ]
 })
